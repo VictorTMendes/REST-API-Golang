@@ -1,0 +1,26 @@
+package main
+
+import (
+	"go-api/controller"
+
+	"github.com/gin-gonic/gin"
+)
+
+func main() {
+
+	// rota de teste de ping, para ver se está funcionando a API
+	server := gin.Default()
+
+	ProductController := controller.NewProductController()
+
+	server.GET("/ping", func(ctx *gin.Context) {
+		ctx.JSON(200, gin.H{
+			"message": "pong",
+		})
+	})
+
+	server.GET("/products", ProductController.GetProducts)
+
+	server.Run(":8000")
+
+}
